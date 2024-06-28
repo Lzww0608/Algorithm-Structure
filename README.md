@@ -1,1 +1,1 @@
-# Algorithm-Structrue
+# Algorithm Structure

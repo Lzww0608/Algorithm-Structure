@@ -2,16 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
+      "name": "(gdb) Launch", 
+      "type": "cppdbg", 
+      "request": "launch", 
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe", 
+      "args": [], 
       "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "f:/Code/Algorithm-Structure/BloomFilter",
-      "program": "f:/Code/Algorithm-Structure/BloomFilter/build/Debug/outDebug",
+      "cwd": "${workspaceRoot}",
+      "environment": [],
+      "externalConsole": true, 
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
+      "miDebuggerPath": "E:/VSCode/bin/g++.exe",
+      "preLaunchTask": "g++",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",

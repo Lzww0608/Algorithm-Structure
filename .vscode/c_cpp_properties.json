@@ -5,7 +5,7 @@
       "includePath": [
         "${workspaceFolder}/**"
       ],
-      "compilerPath": "E:/VSCode/bin/gcc.exe",
+      "compilerPath": "E:/VSCode/bin/mingw32-g++.exe",
       "cStandard": "${default}",
       "cppStandard": "${default}",
       "intelliSenseMode": "windows-gcc-x86",

@@ -6,6 +6,7 @@
             "label": "C/C++: g++.exe build active file",
             "command": "E:/VSCode/bin/g++.exe",
             "args": [
+                "-std=c++20",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",

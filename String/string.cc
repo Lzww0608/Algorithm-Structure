@@ -70,6 +70,10 @@ public:
         }
         return *this;
     }
+	
+	~String() {
+		delete []data_;
+	}
     
     void reserve(size_t new_capacity) {
         if (new_capacity > capacity_) {

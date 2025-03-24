@@ -2,77 +2,109 @@
 #include <vector>
 #include <cstdlib>
 
-constexpr int LEVEL = 8;
-
-class Node {
-public:
-	int val;
-	std::vector<Node*> next;
-	Node(int v) : val(v) {
-		next.resize(LEVEL, nullptr);
-	}
-};
-
-class Skiplist {
-public:
-	Skiplist() {
-		head = new Node(-1);
-	}
-
-	~Skiplist() {
-		delete head;
-	}
-
-	void find(int target, std::vector<Node*>& pre) {
-		auto p = head;
-		for (int i = LEVEL - 1; i >= 0; i--) {
-			while (p->next[i] && p->next[i]->val < target) {
-				p = p->next[i];
-			}
-			pre[i] = p;
-		}
-	}
-
-	bool search(int target) {
-		std::vector<Node*> pre(LEVEL);
-		find(target, pre);
-		auto p = pre[0]->next[0];
-		return p != nullptr && p->val == target;
-	}
-
-	void add(int num) {
-		std::vector<Node*> pre(LEVEL);
-		find(num, pre);
-
-		auto p = new Node(num);
-		for (int i = 0; i < LEVEL; ++i) {
-			p->next[i] = pre[i]->next[i];
-			pre[i]->next[i] = p;
-			if (rand() & 1) break;
-		}
-	}
-
-	bool erase(int num) {
-		std::vector<Node*> pre(LEVEL);
-		find(num, pre);
-
-		auto p = pre[0]->next[0];
-		if (p == nullptr || p->val != num) {
-			return false;
-		}
-
-		for (int i = 0; i < LEVEL && pre[i]->next[i] == p; ++i) {
-			pre[i]->next[i] = p->next[i];
-		}
-
-		delete p;
-
-		return true;
-	}
-
+Skiplist {
 private:
-	Node *head;
+    static constexpr int kMaxHeight = 8;
+
+    struct Node {
+        int val;
+        int height;
+        Node **next;
+        Node(int v = 0, int h = kMaxHeight): val(v), height(h) {
+            next = new Node*[h];
+            while (--h >= 0) {
+                next[h] = nullptr;
+            }
+        }
+    };
+
+    int getRandomHeight() {
+        int h = 1;
+        while (h <= kMaxHeight && rand() % 4 == 1) {
+            h++;
+        }
+        return h;
+    }
+
+    Node* findEqualOrGreater(int target, Node **prev) {
+        auto it = head;
+        int level = kMaxHeight - 1;
+        while (true) {
+            auto next = it->next[level];
+            if (next != nullptr && next->val < target) {
+                it = next;
+            } else {
+                if (prev != nullptr) {
+                    prev[level] = it;
+                } 
+
+                if (level == 0) {
+                    return next;
+                } else {
+                    --level;
+                }
+            }
+        }
+
+        return nullptr;
+    }
+    
+
+    Node* head;
+public:
+    Skiplist() {
+        head = new Node();
+    }
+    
+    bool search(int target) {
+        auto it = findEqualOrGreater(target, nullptr);
+        return it != nullptr && it->val == target;
+    }
+    
+    void add(int num) {
+        auto prev = new Node*[kMaxHeight];
+        auto node = new Node(num, getRandomHeight());
+        findEqualOrGreater(num, prev);
+        for (int i = 0; i < node->height; i++) {
+            node->next[i] = prev[i]->next[i];
+            prev[i]->next[i] = node;
+        }
+    }
+    
+
+
+    vector<int> rangeQuery(int start, int end) {
+        vector<int> res;
+        Node* cur = findEqualOrGreater(start, nullptr);
+        while (cur && cur->next[0] && cur->next[0]->val <= end) {
+            cur = cur->next[0];  
+            res.push_back(cur->val);
+        }
+        return res;
+    }
+    
+    ~Skiplist() {  
+        Node* cur = head;
+        while (cur) {
+            Node* tmp = cur->next[0];
+            delete cur;
+            cur = tmp;
+        }
+    }
+
+    bool erase(int num) {
+        Node* prev[kMaxHeight] = {nullptr};  
+        Node* to_del = findEqualOrGreater(num, prev);
+        if (!to_del || to_del->val != num) return false;
+
+        for (int i=0; i<to_del->height; ++i) 
+            prev[i]->next[i] = to_del->next[i];
+        
+        delete to_del;  
+        return true;
+    }
 };
+
 
 int main() {
 	Skiplist skiplist;

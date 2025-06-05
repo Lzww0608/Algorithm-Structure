@@ -6,12 +6,15 @@
 
 ## Interview writing-code
 
-LRU, LFU
++ LRU, LFU
++ SkipList
++ Shared_ptr, Unique_ptr
++ Timers
++ Buffer
++ Memory Pool
++ Thread Pool
++ Lock-free Queue
++ String
++ Singleton
++ Rate Limiting
 
-SkipList
-
-Shared_ptr, Unique_ptr
-
-Timers
-
-Buffer

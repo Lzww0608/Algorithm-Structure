@@ -6,7 +6,7 @@
 
 ## Interview writing-code
 
-+ LRU, LFU
++ LRU, LFU, ARC
 + SkipList
 + Shared_ptr, Unique_ptr
 + Timers
@@ -17,4 +17,4 @@
 + String
 + Singleton
 + Rate Limiting
-
++ Design Hash

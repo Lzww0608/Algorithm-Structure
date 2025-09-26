@@ -1,3 +1,45 @@
+/*
+@Author: Lzww
+@LastEditTime: 2025-9-26 10:00:49
+@Description: 骑士周游问题
+https://www.luogu.com.cn/problem/solution/UVA10255
+启发式搜索，每次从可以选择的点中计算评估函数f(a, b), a为该点可以移动的数目，b为该点离中心点的距离，
+按照a从小到大，b从大到小排序，选择f(a, b)最小的点，这样每次先选择难以到达以及更边缘的点。
+@Language: C++17
+*/
+
+#include <iostream>
+#include <algorithm>
+#include <unordered_set>
+#include <unordered_map>
+#include <map>
+#include <set>
+#include <cmath>
+#include <queue>
+#include <utility>
+#include <tuple>
+#include <ranges>
+#include <functional>
+#include <chrono>
+#include <vector>
+#include <array>
+#include <random>
+#include <stack>
+#include <bitset>
+#include <deque>
+#include <ios>
+#include <list>
+#include <cstdint>
+#include <limits>
+#include <limits.h>
+#include <cstdio>
+#include <shared_mutex>
+#include <mutex>
+#include <memory>
+#include <condition_variable>
+#include <thread>
+#include <random>
+
 #include <iostream>
 #include <algorithm>
 #include <unordered_set>
@@ -102,6 +144,7 @@ int main() {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 	while (std::cin >> n >> a >> b) {
 		g = {};
 		a--;
@@ -118,6 +161,8 @@ int main() {
 		}
 		std::cout << "\n";
 	}
-	
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time_used = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+	std::cout << "Time used: " << time_used.count() << " seconds" << std::endl;
 	return 0;
 }

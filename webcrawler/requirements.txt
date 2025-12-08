@@ -1,0 +1,9 @@
+# Web Crawler Dependencies
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+aiohttp>=3.9.0
+dnspython>=2.4.0
+pybloom-live>=4.0.0
+redis>=5.0.0
+

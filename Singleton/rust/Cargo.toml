@@ -1,0 +1,43 @@
+[package]
+name = "rust-singleton-patterns"
+version = "1.0.0"
+edition = "2021"
+authors = ["Your Name"]
+description = "Industrial-grade thread-safe singleton patterns in Rust"
+
+[dependencies]
+# 方法1: lazy_static
+lazy_static = "1.4"
+
+# 方法2: once_cell (更现代的选择)
+once_cell = "1.19"
+
+# 注意: 方法3-6 使用标准库，无需额外依赖
+
+[dev-dependencies]
+# 用于测试的依赖
+criterion = "0.5"
+
+[[bin]]
+name = "lazy_static_demo"
+path = "lazy_static_singleton.rs"
+
+[[bin]]
+name = "once_cell_demo"
+path = "once_cell_singleton.rs"
+
+[[bin]]
+name = "once_lock_demo"
+path = "once_lock_singleton.rs"
+
+[[bin]]
+name = "once_demo"
+path = "once_singleton.rs"
+
+[[bin]]
+name = "arc_mutex_demo"
+path = "arc_mutex_singleton.rs"
+
+[[bin]]
+name = "rwlock_demo"
+path = "rwlock_singleton.rs"
